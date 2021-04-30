@@ -28,8 +28,8 @@ public class AccountControllerImpl implements AccountController{
 	@Autowired
 	private TransactionService transactionService;
 	
-	@GetMapping("/")
-	public Account getAccount(int idAccount) throws Exception {
+	@GetMapping("/{idAccount}")
+	public Account getAccount(@PathVariable int idAccount) throws Exception {
 		Account account  = accountService.getAccount(idAccount);
 		if(account != null) {
 			return account;
@@ -49,7 +49,7 @@ public class AccountControllerImpl implements AccountController{
 		return accountService.updateAccount(account);
 	}
 	
-	@PutMapping("/{idAccount}/addTransaction/")
+	@PutMapping("/{idAccount}/addTransaction")
 	public Account updateAccount(@PathVariable int idAccount, @RequestBody Transaction transaction) {
 		Account account = accountService.getAccount(idAccount);
 		account.setBalance(account.getBalance()+transaction.getMontant());
